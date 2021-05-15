@@ -1,0 +1,198 @@
+D:\Visual Studio 2005\Projects\Neuron\Neuron\bin\Debug\Neuron.exe
+D:\Visual Studio 2005\Projects\Neuron\Neuron\bin\Debug\Neuron.pdb
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.Properties.Resources.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.csproj.GenerateResource.Cache
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.exe
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.pdb
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.NeuronGraphics.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.Form1.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.NeuronInformation.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.NetOptions.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.StudyPairModifier.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.NeuroninputInformation.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.ShowErrorForm.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\ColorGrid.ColorGrid.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.ColorGridForm.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.ObjectNameForm.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\bin\Debug\GemBox.Spreadsheet.xml
+D:\Visual Studio 2005\Projects\Neuron\Neuron\bin\Debug\Parser.pdb
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.ClassificationGraphics.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.ClassificationGraphicsForm.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\_DGraphics.Graphics3D.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.RegressionForm.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.NetViewForm.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.StudyFunctionForm.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.AssociationMemoryForm.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.LoadSaveTasks.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Database.ConnectToDatabaseForm.resources
+D:\Visual Studio 2005\Projects\Neuron\Neuron\obj\Debug\Neuron.ParameterListForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.exe
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.pdb
+C:\Documents and Settings\dell\Рабочий стол\1\bin\Debug\Neuron.exe
+C:\Documents and Settings\dell\Рабочий стол\1\bin\Debug\Neuron.pdb
+C:\Documents and Settings\dell\Рабочий стол\1\bin\Debug\GemBox.Spreadsheet.dll
+C:\Documents and Settings\dell\Рабочий стол\1\bin\Debug\Parser.dll
+C:\Documents and Settings\dell\Рабочий стол\1\bin\Debug\Parser.pdb
+C:\Documents and Settings\dell\Рабочий стол\1\bin\Debug\GemBox.Spreadsheet.xml
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\_DGraphics.Graphics3D.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.AssociationMemoryForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.ClassificationGraphics.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.ClassificationGraphicsForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\ColorGrid.ColorGrid.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.ColorGridForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Database.ConnectToDatabaseForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.Form1.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.LoadSaveTasks.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.NetOptions.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.NetViewForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.NeuroninputInformation.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.NeuronGraphics.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.NeuronInformation.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.ObjectNameForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.ParameterListForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.Properties.Resources.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.RegressionForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.ShowErrorForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.StudyFunctionForm.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.StudyPairModifier.resources
+C:\Documents and Settings\dell\Рабочий стол\1\obj\Debug\Neuron.csproj.GenerateResource.Cache
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.exe
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.pdb
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\bin\Debug\Neuron.exe
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\bin\Debug\Neuron.pdb
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\bin\Debug\GemBox.Spreadsheet.dll
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\bin\Debug\Parser.dll
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\bin\Debug\Parser.pdb
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\bin\Debug\GemBox.Spreadsheet.xml
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\ResolveAssemblyReference.cache
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\_DGraphics.Graphics3D.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.AssociationMemoryForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.ClassificationGraphics.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.ClassificationGraphicsForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\ColorGrid.ColorGrid.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.ColorGridForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Database.ConnectToDatabaseForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.Form1.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.LoadSaveTasks.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.NetOptions.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.NetViewForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.NeuroninputInformation.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.NeuronGraphics.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.NeuronInformation.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.ObjectNameForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.ParameterListForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.Properties.Resources.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.RegressionForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.ShowErrorForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.StudyFunctionForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.StudyPairModifier.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.csproj.GenerateResource.Cache
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.LinearSystemGraphics.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\1\obj\Debug\Neuron.LinearSystemTaskForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.exe
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.pdb
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\ResolveAssemblyReference.cache
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\_DGraphics.Graphics3D.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.AssociationMemoryForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.ClassificationGraphics.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.ClassificationGraphicsForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\ColorGrid.ColorGrid.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.ColorGridForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Database.ConnectToDatabaseForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.Form1.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.LinearSystemGraphics.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.LinearSystemTaskForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.LoadSaveTasks.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.NetOptions.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.NetViewForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.NeuroninputInformation.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.NeuronGraphics.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.NeuronInformation.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.ObjectNameForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.ParameterListForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.Properties.Resources.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.RegressionForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.ShowErrorForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.StudyFunctionForm.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.StudyPairModifier.resources
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\obj\Debug\Neuron.csproj.GenerateResource.Cache
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\bin\Debug\Neuron.exe
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\bin\Debug\Neuron.pdb
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\bin\Debug\GemBox.Spreadsheet.dll
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\bin\Debug\Parser.dll
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\bin\Debug\Parser.pdb
+D:\Мои документы\Лабораторные\9 семестр\Симахин\NeuroLab-build\bin\Debug\GemBox.Spreadsheet.xml
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.csprojAssemblyReference.cache
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\_DGraphics.Graphics3D.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.AssociationMemoryForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ClassificationGraphics.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ClassificationGraphicsForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\ColorGrid.ColorGrid.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ColorGridForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Database.ConnectToDatabaseForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.Form1.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.LinearSystemGraphics.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.LinearSystemTaskForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.LoadSaveTasks.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.NetOptions.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.NetViewForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.NeuroninputInformation.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.NeuronGraphics.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.NeuronInformation.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ObjectNameForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ParameterListForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.Properties.Resources.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.RegressionForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ShowErrorForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.StudyFunctionForm.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.StudyPairModifier.resources
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.csproj.GenerateResource.cache
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.csproj.CoreCompileInputs.cache
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.exe
+C:\Users\Kowalski\Desktop\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.pdb
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.csprojAssemblyReference.cache
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\_DGraphics.Graphics3D.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.AssociationMemoryForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ClassificationGraphics.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ClassificationGraphicsForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\ColorGrid.ColorGrid.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ColorGridForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Database.ConnectToDatabaseForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.Form1.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.LinearSystemGraphics.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.LinearSystemTaskForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.LoadSaveTasks.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.NetOptions.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.NetViewForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.NeuroninputInformation.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.NeuronGraphics.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.NeuronInformation.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ObjectNameForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ParameterListForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.Properties.Resources.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.RegressionForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.ShowErrorForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.StudyFunctionForm.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.StudyPairModifier.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.csproj.GenerateResource.cache
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.csproj.CoreCompileInputs.cache
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.exe
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.pdb
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\Neuron.exe
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\Neuron.pdb
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\GemBox.Spreadsheet.dll
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\Parser.dll
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\GemBox.Spreadsheet.xml
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\Microsoft.DirectX.xml
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\Microsoft.DirectX.Direct3D.xml
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\Microsoft.DirectX.Direct3DX.xml
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\Parser.pdb
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.csproj.CopyComplete
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\Neuron.exe.config
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\System.Data.SQLite.dll
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\bin\Debug\System.Data.SQLite.xml
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.SaveMenu.resources
+C:\Users\Kowalski\Desktop\Work\NeuroLab 2009\NeuroLab-build\obj\Debug\Neuron.LoadMenu.resources
