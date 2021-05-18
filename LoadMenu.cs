@@ -16,6 +16,7 @@ namespace Neuron
     {
         Database databaseSQLite = new Database();
         public string fileName;
+        public int indexSave;
 
         public LoadMenu()
         {
@@ -24,34 +25,18 @@ namespace Neuron
 
         private void LoadMenu_Load(object sender, EventArgs e)
         {
-            LoadNames();
+            if (indexSave == 0)
+                LoadFiles();
+            else if (indexSave == 1)
+                LoadGraphs();
+            else
+            {
+                MessageBox.Show("Не инициализирована таблица", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            fileName = comboBox1.Text;
-            this.Close();
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            button2.Enabled = true;
-            button3.Enabled = true;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            string query = "DELETE from SaveFiles where id=" + "\"" + comboBox1.SelectedIndex + "\"";
-            databaseSQLite.OpenConnection();
-            SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
-            int result = myCommand.ExecuteNonQuery();
-            button3.Enabled = false;
-            button2.Enabled = false;
-            databaseSQLite.CloseConnection();
-            LoadNames();
-        }
-
-        private void LoadNames()
+        private void LoadFiles()
         {
             comboBox1.Items.Clear();
             string query = "select * from SaveFiles";
@@ -65,14 +50,81 @@ namespace Neuron
                 comboBox1.Items.Add(dataRow["Name"].ToString());
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void LoadGraphs()
         {
-            string query = "DELETE FROM SaveFiles; REINDEX SaveFiles; VACUUM;";
+            comboBox1.Items.Clear();
+            string query = "select * from SaveGraphs";
             databaseSQLite.OpenConnection();
             SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
-            int result = myCommand.ExecuteNonQuery();
-            LoadNames();
+            SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myCommand);
+            DataTable dataTable = new DataTable();
+            myDataAdapter.Fill(dataTable);
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                comboBox1.Items.Add(dataRow["Name"].ToString());
+            }
+        }
+
+        //Очистка всех файлов
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (indexSave == 0)
+            {
+                string query = "DELETE FROM SaveFiles; REINDEX SaveFiles; VACUUM;";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                int result = myCommand.ExecuteNonQuery();
+                LoadFiles();
+            }
+            else if (indexSave == 1)
+            {
+                string query = "DELETE FROM SaveGraphs; REINDEX savegraphs; VACUUM;";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                int result = myCommand.ExecuteNonQuery();
+                LoadGraphs();
+            }
+        }
+
+        //Очистка определенного файла
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (indexSave == 0)
+            {
+                string query = "DELETE from SaveFiles where id=" + "\"" + comboBox1.SelectedIndex + "\"";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                int result = myCommand.ExecuteNonQuery();
+                button3.Enabled = false;
+                button2.Enabled = false;
+                databaseSQLite.CloseConnection();
+                LoadFiles();
+            }
+            else if (indexSave == 1)
+            {
+                string query = "DELETE from SaveGraphs where id=" + "\"" + comboBox1.SelectedIndex + "\"";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                int result = myCommand.ExecuteNonQuery();
+                button3.Enabled = false;
+                button2.Enabled = false;
+                databaseSQLite.CloseConnection();
+                LoadGraphs();
+            }
+
+        }
+
+        //Загрузить
+        private void button2_Click(object sender, EventArgs e)
+        {
+            fileName = comboBox1.Text;
+            this.Close();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            button2.Enabled = true;
+            button3.Enabled = true;
         }
     }
 }

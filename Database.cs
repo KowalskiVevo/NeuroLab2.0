@@ -31,6 +31,7 @@ namespace Neuron
             {
                 Console.WriteLine("Я ВКЛЮЧИЛСЯ");
                 myConnection.Open();
+                
             }
         }
 

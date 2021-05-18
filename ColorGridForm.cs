@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.IO;
 using ColorGrid;
 using GemBox.Spreadsheet;
+using System.Data.SQLite;
+using Database;
 
 namespace Neuron
 {
@@ -19,6 +21,7 @@ namespace Neuron
         protected int currentStudyPair = 0;
         protected bool pairsLoaded = false;
         public bool IsClassification = true;
+        Database databaseSQLite = new Database();
         LinearNeuronNet net;
 
         public ColorGridForm(LinearNeuronNet _net)
@@ -73,30 +76,13 @@ namespace Neuron
         {
             net.LastNeuronGroup.SetNeuronCount(studyPairs[currentStudyPair].quits.Count);
             net.InputsCount = studyPairs[currentStudyPair].inputs.Count;
-            if(!net.StudyPairsLoaded) net.StudyPairs = studyPairs;
+            if (!net.StudyPairsLoaded) net.StudyPairs = studyPairs;
             pairsLoaded = true;
             net.GraphicsNeuron.netOptions.InputsCount = net.InputsCount;
-        }
-
-        private void LoadPairs(object sender, EventArgs e)
-        {           
-            string[] file;
-            OpenFileDialog dlg = new OpenFileDialog();
             
-            studyPairs.Clear();
-
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                file = File.ReadAllLines(dlg.FileName , Encoding.Default);
-
-                for (int i = 0; i < file.Length; i++)
-                    studyPairs.Add(StudyPair.FromString(file[i]));
-
-                colorGrid.SetData(studyPairs[currentStudyPair].inputs);
-                ChangeNetSettings();
-                CreatePreview();
-            }
         }
+
+        
         
         private void NextPicture(object sender, EventArgs e)
         {
@@ -154,28 +140,101 @@ namespace Neuron
         private void ExcelExport(object sender, EventArgs e)
         {
             ExcelFile exFile = new ExcelFile();
-            ExcelWorksheet sheet = exFile.Worksheets.Add("Picture");
             SaveFileDialog saveFileDlg = new SaveFileDialog();
-
-            if (saveFileDlg.ShowDialog() == DialogResult.OK)
+            saveFileDlg.Filter = "Excel Files (.xls)| *.xls|All files (.)| *.";
+            if (saveFileDlg.ShowDialog() == DialogResult.OK && studyPairs.Count != 0)
             {
-                for (int i = 0; i < colorGrid.GridSize.Height; i++)
+                for (int i = 0; i < studyPairs.Count; i++)
                 {
-                    for (int j = 0; j < colorGrid.GridSize.Width; j++)
+                    ExcelWorksheet sheet = exFile.Worksheets.Add("Picture" + (i+1));
+                    int ii = 0;
+                    int jj = 0;
+                    for (int j = 0; j < studyPairs[i].inputs.Count; j++)
                     {
-                        sheet.Cells[i, j].Value = colorGrid.Data[j, i].value ? "X" : "-";
+                        if (jj>= colorGrid.GridSize.Width)
+                        {
+                            ii++;
+                            jj = 0;
+                        }
+                        if (studyPairs[i].inputs[j] == 1)
+                        {
+                            sheet.Cells[ii, jj].Value = "X";
+                        }
+                        else
+                        {
+                            sheet.Cells[ii, jj].Value = "-";
+                        }
+                        jj++;
                     }
                 }
+                    //for (int i = 0; i < colorGrid.GridSize.Height; i++)
+                    //{
+                    //    for (int j = 0; j < colorGrid.GridSize.Width; j++)
+                    //    {
+                    //        sheet.Cells[i, j].Value = colorGrid.Data[j, i].value ? "X" : "-";
+                    //    }
+                    //}
 
                 exFile.SaveXls(saveFileDlg.FileName);
-                System.Diagnostics.Process.Start(saveFileDlg.FileName);
+                //System.Diagnostics.Process.Start(saveFileDlg.FileName);
+            }
+            else
+            {
+                MessageBox.Show("Нету образов", "ExcelExport", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void picturePreview_MouseDown(object sender, MouseEventArgs e)
+        private void ExcelImport(object sender, EventArgs e)
         {
-            currentStudyPair = e.X / picturePreview.Height;
-            colorGrid.SetData(studyPairs[currentStudyPair].inputs);
+            ExcelFile exFile = new ExcelFile();
+            OpenFileDialog loadFileDlg = new OpenFileDialog();
+            loadFileDlg.Filter = "Excel Files (.xls)| *.xls|All files (.)| *.";
+            
+            if (loadFileDlg.ShowDialog() == DialogResult.OK)
+            {
+                studyPairs.Clear();
+                try
+                {
+                    exFile.LoadXls(loadFileDlg.FileName);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Нету файла", "ExcelImport", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+                for (int i = 0; i < exFile.Worksheets.Count; i++)
+                {
+                    ExcelWorksheet sheet = exFile.Worksheets[i];
+                    StudyPair pair = new StudyPair();
+                    int ii = 0;
+                    int jj = 0;
+                    for (int j = 0; j < colorGrid.GridSize.Width * colorGrid.GridSize.Height; j++) 
+                    {
+                        if (jj >= colorGrid.GridSize.Width)
+                        {
+                            ii++;
+                            jj = 0;
+                        }
+                        if (sheet.Cells[ii, jj].Value.ToString() == "X")
+                        {
+                            pair.inputs.Add(1);
+                        }
+                        else
+                        {
+                            pair.inputs.Add(0);
+                        }
+                        jj++;
+                    }
+                    studyPairs.Add(pair);
+                }
+                colorGrid.SetData(studyPairs[currentStudyPair].inputs);
+                ChangeNetSettings();
+                CreatePreview();
+            }
+            else
+            {
+                MessageBox.Show("Нету образов", "ExcelImport", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         protected virtual void Save(object sender, EventArgs e)
@@ -189,6 +248,32 @@ namespace Neuron
                 File.WriteAllText(dlg.FileName, net.StudyPairsToString(studyPairs.Count));
             }
             
+        }
+
+        private void LoadPairs(object sender, EventArgs e)
+        {
+            string[] file;
+            OpenFileDialog dlg = new OpenFileDialog();
+
+            studyPairs.Clear();
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                file = File.ReadAllLines(dlg.FileName, Encoding.Default);
+
+                for (int i = 0; i < file.Length; i++)
+                    studyPairs.Add(StudyPair.FromString(file[i]));
+
+                colorGrid.SetData(studyPairs[currentStudyPair].inputs);
+                ChangeNetSettings();
+                CreatePreview();
+            }
+        }
+
+        private void picturePreview_MouseDown(object sender, MouseEventArgs e)
+        {
+            currentStudyPair = e.X / picturePreview.Height;
+            colorGrid.SetData(studyPairs[currentStudyPair].inputs);
         }
 
         private void AddPicture(object sender, EventArgs e)
@@ -254,9 +339,87 @@ namespace Neuron
             CreatePreview();
         }
 
-        private void импортироватьИзБазыДанныхToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DataBaseImport(object sender, EventArgs e)
         {
-            BuildExistingStudyPairs();
+            //SaveFileDialog openDlg = new SaveFileDialog();
+            SaveMenu saveMenu = new SaveMenu();
+            saveMenu.indexSave = 1;
+            saveMenu.ShowDialog();
+            //saveMenu.ShowDialog();
+            if (saveMenu.fileName != null)
+            {
+                if (studyPairs.Count == 0)
+                    MessageBox.Show("Пустой файл", "DataBaseImport", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    ChangeNetSettings();
+                    File.WriteAllText("temp.txt", net.StudyPairsToString(studyPairs.Count));
+
+                    byte[] fileData;
+                    using (FileStream fs = new FileStream("temp.txt", FileMode.Open))
+                    {
+                        fileData = new byte[fs.Length];
+                        fs.Read(fileData, 0, fileData.Length);
+                    }
+
+                    string query = "select max(id) from SaveGraphs";
+                    databaseSQLite.OpenConnection();
+                    SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                    int maxID;
+                    if (myCommand.ExecuteScalar() == DBNull.Value)
+                    {
+                        maxID = 0;
+                    }
+                    else
+                    {
+                        maxID = Convert.ToInt32(myCommand.ExecuteScalar()) + 1;
+                    }
+
+                    query = "INSERT INTO SaveGraphs (id,Name,Graph) values (@id, @Name, @Graph)";
+                    myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                    myCommand.Parameters.AddWithValue("@id", maxID);
+                    myCommand.Parameters.AddWithValue("@Name", saveMenu.fileName);
+                    myCommand.Parameters.AddWithValue("@Graph", fileData);
+                    myCommand.ExecuteNonQuery();
+                    databaseSQLite.CloseConnection();
+                }
+            }
+        }
+
+        private void DataBaseExport(object sender, EventArgs e)
+        {
+            LoadMenu loadMenu = new LoadMenu();
+            loadMenu.indexSave = 1;
+            loadMenu.ShowDialog();
+
+            string[] file;
+            if (loadMenu.fileName != null)
+            {
+                string query = "select Graph from SaveGraphs where Name=" + "\"" + loadMenu.fileName + "\"";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                using (SQLiteDataReader reader = myCommand.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            string data = (string)reader.GetValue(0);
+                            File.WriteAllText("temp.txt", data);
+                        }
+                    }
+                }
+                databaseSQLite.CloseConnection();
+                studyPairs.Clear();
+                FileStream fs = new FileStream("temp.txt", FileMode.Open, FileAccess.Read);
+                file = File.ReadAllLines("temp.txt", Encoding.Default);
+                for (int i = 0; i < file.Length; i++)
+                    studyPairs.Add(StudyPair.FromString(file[i]));
+                colorGrid.SetData(studyPairs[currentStudyPair].inputs);
+                ChangeNetSettings();
+                CreatePreview();
+                fs.Close();
+            }
         }
     }
 }

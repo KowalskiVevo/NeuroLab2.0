@@ -16,6 +16,7 @@ namespace Neuron
     {
         Database databaseSQLite = new Database();
         public string fileName;
+        public int indexSave;
 
         public SaveMenu()
         {
@@ -31,7 +32,39 @@ namespace Neuron
 
         private void SaveMenu_Load(object sender, EventArgs e)
         {
+            if (indexSave == 0)
+            {
+                SaveFiles();
+            }
+            else if (indexSave == 1)
+            {
+                SaveGraphs();
+            }
+            else
+            {
+                MessageBox.Show("Не инициализирована таблица", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+        }
+
+        private void SaveFiles()
+        {
             string query = "select * from SaveFiles";
+            databaseSQLite.OpenConnection();
+            SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+            SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myCommand);
+            DataTable dataTable = new DataTable();
+            myDataAdapter.Fill(dataTable);
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                comboBox1.Items.Add(dataRow["Name"].ToString());
+            }
+            databaseSQLite.CloseConnection();
+        }
+
+        private void SaveGraphs()
+        {
+            string query = "select * from SaveGraphs";
             databaseSQLite.OpenConnection();
             SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
             SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myCommand);
@@ -59,11 +92,6 @@ namespace Neuron
             {
                 button2.Enabled = true;
             }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

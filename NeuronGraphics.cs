@@ -625,6 +625,7 @@ namespace Neuron
             BinaryFormatter bf = new BinaryFormatter();
             //SaveFileDialog openDlg = new SaveFileDialog();
             SaveMenu saveMenu = new SaveMenu();
+            saveMenu.indexSave = 0;
             saveMenu.ShowDialog();
             if (saveMenu.fileName != null)
             {
@@ -660,7 +661,7 @@ namespace Neuron
                 myCommand.Parameters.AddWithValue("@File", fileData);
                 myCommand.ExecuteNonQuery();
                 databaseSQLite.CloseConnection();
-            }
+            }   
         }
 
         //Загрузка
@@ -669,6 +670,7 @@ namespace Neuron
             BinaryFormatter bf = new BinaryFormatter();
             //OpenFileDialog openDlg = new OpenFileDialog();
             LoadMenu loadMenu = new LoadMenu();
+            loadMenu.indexSave = 0;
             loadMenu.ShowDialog();
             if (loadMenu.fileName != null)
             {
