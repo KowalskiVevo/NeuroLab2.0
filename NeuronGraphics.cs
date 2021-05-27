@@ -33,6 +33,8 @@ namespace Neuron
         Task currentTask = Task.NONE;
         public LoadSaveTasks loadSaveTasksForm;
 
+        public bool RestartCGF = false;
+
         public enum NeuronNetType
         { 
             LINEAR = 0, 
@@ -463,9 +465,11 @@ namespace Neuron
 
         public void RecognizeImages(object sender, EventArgs e)
         {
+
             LinearNetType(this, EventArgs.Empty);
 
             ColorGridForm colorForm = new ColorGridForm((LinearNeuronNet)net);
+            colorForm.neuronGraphics = this;
             colorForm.Show();
         }
 

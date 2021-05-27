@@ -23,6 +23,7 @@ namespace Neuron
         public bool IsClassification = true;
         Database databaseSQLite = new Database();
         LinearNeuronNet net;
+        public NeuronGraphics neuronGraphics;
 
         public ColorGridForm(LinearNeuronNet _net)
         {
@@ -382,6 +383,9 @@ namespace Neuron
                     myCommand.Parameters.AddWithValue("@Graph", fileData);
                     myCommand.ExecuteNonQuery();
                     databaseSQLite.CloseConnection();
+
+                    neuronGraphics.RecognizeImages(this, EventArgs.Empty);
+                    this.Close();
                 }
             }
         }
