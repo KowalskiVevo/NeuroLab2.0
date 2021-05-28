@@ -40,6 +40,14 @@ namespace Neuron
             {
                 SaveGraphs();
             }
+            else if (indexSave == 2)
+            {
+                SaveFilesClassification();
+            }
+            else if (indexSave == 3)
+            {
+                SaveLinearSystemTask();
+            }
             else
             {
                 MessageBox.Show("Не инициализирована таблица", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -49,6 +57,7 @@ namespace Neuron
 
         private void SaveFiles()
         {
+            this.Text = "SaveFiles";
             string query = "select * from SaveFiles";
             databaseSQLite.OpenConnection();
             SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
@@ -64,7 +73,40 @@ namespace Neuron
 
         private void SaveGraphs()
         {
+            this.Text = "SaveGraphs";
             string query = "select * from SaveGraphs";
+            databaseSQLite.OpenConnection();
+            SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+            SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myCommand);
+            DataTable dataTable = new DataTable();
+            myDataAdapter.Fill(dataTable);
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                comboBox1.Items.Add(dataRow["Name"].ToString());
+            }
+            databaseSQLite.CloseConnection();
+        }
+
+        private void SaveFilesClassification()
+        {
+            this.Text = "SaveFilesClassification";
+            string query = "select * from SaveFilesClassification";
+            databaseSQLite.OpenConnection();
+            SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+            SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myCommand);
+            DataTable dataTable = new DataTable();
+            myDataAdapter.Fill(dataTable);
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                comboBox1.Items.Add(dataRow["Name"].ToString());
+            }
+            databaseSQLite.CloseConnection();
+        }
+
+        private void SaveLinearSystemTask()
+        {
+            this.Text = "SaveLinearSystemTask";
+            string query = "select * from SaveLinearSystemTask";
             databaseSQLite.OpenConnection();
             SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
             SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myCommand);

@@ -6,22 +6,29 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Data.SQLite;
+using System.IO;
+using Database;
 
 namespace Neuron
 {
     public partial class ClassificationGraphics : UserControl
     {
+        [Serializable]
         public class ObjectClass
         {
             public int id; 
             public List<PointF> values = new List<PointF>();
             public List<int> ids = new List<int>();
+            public List<ObjectClass> listBrushes = new List<ObjectClass>();
+            [NonSerialized]
             public Brush brush = Brushes.Red;
             public static float size = 6;
             public static Brush[] brushes = { Brushes.Red , Brushes.Yellow , Brushes.Green , Brushes.Blue , Brushes.DarkGoldenrod , Brushes.Maroon , Brushes.DarkOrange , Brushes.DarkBlue , Brushes.Cornsilk , Brushes.Coral , Brushes.Black , Brushes.Azure};
-
             public static int currentID = 0;
             public static int singleValueID = 1;
+
 
             public ObjectClass()
             {
@@ -60,7 +67,6 @@ namespace Neuron
         public ClassificationGraphics(LinearNeuronNet net)
         {
             InitializeComponent();
-
             ReloadBitmap();
             Paint += new PaintEventHandler(ClassificationGraphics_Paint);            
             Resize += new EventHandler(ClassificationGraphics_Resize);
@@ -302,6 +308,106 @@ namespace Neuron
 
                     UpdateCenterClasses();
                     break;
+            }
+        }
+
+        private void импортВБазуДанныхToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            //SaveFileDialog openDlg = new SaveFileDialog();
+            SaveMenu saveMenu = new SaveMenu();
+            saveMenu.indexSave = 2;
+            saveMenu.ShowDialog();
+            if (saveMenu.fileName != null)
+            {
+                Database databaseSQLite = new Database();
+                currentClass.listBrushes.Clear();
+                foreach (ObjectClass brushes in classes){
+                    currentClass.listBrushes.Add(brushes);
+                }
+                FileStream fd = new FileStream("temp.dat", FileMode.Create, FileAccess.Write);
+                //net.AccessChangeNet = false;
+                bf.Serialize(fd, currentClass);
+                fd.Close();
+
+                byte[] fileData;
+                using (FileStream fs = new FileStream("temp.dat", FileMode.Open))
+                {
+                    fileData = new byte[fs.Length];
+                    fs.Read(fileData, 0, fileData.Length);
+                }
+
+                string query = "select max(id) from SaveFilesClassification";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                int maxID;
+                if (myCommand.ExecuteScalar() == DBNull.Value)
+                {
+                    maxID = 0;
+                }
+                else
+                {
+                    maxID = Convert.ToInt32(myCommand.ExecuteScalar()) + 1;
+                }
+
+                query = "INSERT INTO SaveFilesClassification (id,Name,File) values (@id, @Name, @File)";
+                myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                myCommand.Parameters.AddWithValue("@id", maxID);
+                myCommand.Parameters.AddWithValue("@Name", saveMenu.fileName);
+                myCommand.Parameters.AddWithValue("@File", fileData);
+                myCommand.ExecuteNonQuery();
+                databaseSQLite.CloseConnection();
+            }
+        }
+
+        private void экспортИзБазыДанныхToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            //OpenFileDialog openDlg = new OpenFileDialog();
+            LoadMenu loadMenu = new LoadMenu();
+            loadMenu.indexSave = 2;
+            loadMenu.ShowDialog();
+
+            Database databaseSQLite = new Database();
+            if (loadMenu.fileName != null)
+            {
+                string query = "select File from SaveFilesClassification where Name=" + "\"" + loadMenu.fileName + "\"";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                List<SaveFiles> list = new List<SaveFiles>();
+
+                using (SQLiteDataReader reader = myCommand.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            byte[] data = (byte[])reader.GetValue(0);
+                            SaveFiles saveFile1 = new SaveFiles(data);
+                            list.Add(saveFile1);
+                        }
+                    }
+                }
+                databaseSQLite.CloseConnection();
+                using (FileStream fd = new FileStream("temp.dat", FileMode.OpenOrCreate))
+                {
+                    fd.Write(list[0].File, 0, list[0].File.Length);
+                }
+
+                FileStream fs = new FileStream("temp.dat", FileMode.Open, FileAccess.Read);
+                currentClass = (ObjectClass)bf.Deserialize(fs);
+                classes = currentClass.listBrushes;
+                foreach (ObjectClass brushes in classes)
+                {
+                    brushes.brush = ObjectClass.brushes[brushes.id];
+                }
+                currentClass.brush = ObjectClass.brushes[currentClass.id];
+                ObjectClass.singleValueID = classes.Last().ids.Last()+1;
+                //net.AccessChangeNet = true;
+                fs.Close();
+                DrawGraphics();
+                DrawObjects();
+                Refresh();
             }
         }
 

@@ -7,6 +7,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SQLite;
+using System.IO;
+using Database;
+
 
 namespace Neuron
 {
@@ -360,7 +364,118 @@ namespace Neuron
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
+        }
+
+        private void импортВБазуДанныхToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Database databaseSQLite = new Database();
+            SaveMenu saveMenu = new SaveMenu();
+            saveMenu.indexSave = 3;
+            saveMenu.ShowDialog();
+
+            //SaveFileDialog openFileDialog = new SaveFileDialog();
+            //openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            //openFileDialog.FilterIndex = 2;
+            //openFileDialog.RestoreDirectory = true;
+            if (saveMenu.fileName != null)
+            {
+                //if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+                StreamWriter SW = new StreamWriter("temp.txt");
+                SW.WriteLine(EqvNum.ToString());
+                SW.WriteLine(VarNum.ToString());
+
+                String data;
+                int i = 0, j = 0;
+                for (i = 0; i < DataGridMain.ColumnCount; i++)
+                {
+                    for (j = 0; j < DataGridMain.RowCount - 1; j++)
+                    {
+                        data = DataGridMain[i, j].Value.ToString();
+                        SW.WriteLine(data);
+                    }
+                }
+                SW.Flush();
+                SW.Close();
+
+                byte[] fileData;
+                using (FileStream fs = new FileStream("temp.txt", FileMode.Open))
+                {
+                    fileData = new byte[fs.Length];
+                    fs.Read(fileData, 0, fileData.Length);
+                }
+                
+                //SaveLinearSystemTask
+                string query = "select max(id) from SaveLinearSystemTask";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                int maxID;
+                if (myCommand.ExecuteScalar() == DBNull.Value)
+                {
+                    maxID = 0;
+                }
+                else
+                {
+                    maxID = Convert.ToInt32(myCommand.ExecuteScalar()) + 1;
+                }
+
+                query = "INSERT INTO SaveLinearSystemTask (id,Name,File) values (@id, @Name, @File)";
+                myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                myCommand.Parameters.AddWithValue("@id", maxID);
+                myCommand.Parameters.AddWithValue("@Name", saveMenu.fileName);
+                myCommand.Parameters.AddWithValue("@File", fileData);
+                myCommand.ExecuteNonQuery();
+                databaseSQLite.CloseConnection();
+            }
+        }
+
+        private void экспортИзБазыДанныхToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Database databaseSQLite = new Database();
+            LoadMenu loadMenu = new LoadMenu();
+            loadMenu.indexSave = 3;
+            loadMenu.ShowDialog();
+            //OpenFileDialog openFileDialog = new OpenFileDialog();
+            //openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            //openFileDialog.FilterIndex = 2;
+            //openFileDialog.RestoreDirectory = true;
+
+            //if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+            if (loadMenu.fileName != null)
+            {
+                string query = "select File from SaveLinearSystemTask where Name=" + "\"" + loadMenu.fileName + "\"";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                using (SQLiteDataReader reader = myCommand.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            string data = (string)reader.GetValue(0);
+                            File.WriteAllText("temp.txt", data);
+                        }
+                    }
+                }
+                databaseSQLite.CloseConnection();
+                StreamReader SR = new StreamReader("temp.txt");
+
+                textBoxEqvNum.Text = SR.ReadLine(); ;
+                textBoxVarNum.Text = SR.ReadLine();
+
+                int i = 0, j = 0;
+                for (i = 0; i < DataGridMain.ColumnCount; i++)
+                {
+                    for (j = 0; j < DataGridMain.RowCount - 1; j++)
+                    {
+                        DataGridMain[i, j].Value = SR.ReadLine();
+                    }
+                }
+
+                DataGridMain.Refresh();
+                SR.Close();
+
+            }
         }
     }
 }

@@ -29,10 +29,43 @@ namespace Neuron
                 LoadFiles();
             else if (indexSave == 1)
                 LoadGraphs();
+            else if (indexSave == 2)
+                LoadFilesClassification();
+            else if (indexSave == 3)
+                LoadLinearSystemTask();
             else
             {
                 MessageBox.Show("Не инициализирована таблица", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+            }
+        }
+        private void LoadLinearSystemTask()
+        {
+            comboBox1.Items.Clear();
+            string query = "select * from SaveLinearSystemTask";
+            databaseSQLite.OpenConnection();
+            SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+            SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myCommand);
+            DataTable dataTable = new DataTable();
+            myDataAdapter.Fill(dataTable);
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                comboBox1.Items.Add(dataRow["Name"].ToString());
+            }
+        }
+
+        private void LoadFilesClassification()
+        {
+            comboBox1.Items.Clear();
+            string query = "select * from SaveFilesClassification";
+            databaseSQLite.OpenConnection();
+            SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+            SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myCommand);
+            DataTable dataTable = new DataTable();
+            myDataAdapter.Fill(dataTable);
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                comboBox1.Items.Add(dataRow["Name"].ToString());
             }
         }
 
@@ -84,6 +117,22 @@ namespace Neuron
                 int result = myCommand.ExecuteNonQuery();
                 LoadGraphs();
             }
+            else if (indexSave == 2)
+            {
+                string query = "DELETE FROM SaveFilesClassification; REINDEX savegraphs; VACUUM;";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                int result = myCommand.ExecuteNonQuery();
+                LoadFilesClassification();
+            }
+            else if (indexSave == 3)
+            {
+                string query = "DELETE FROM SaveLinearSystemTask; REINDEX savegraphs; VACUUM;";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                int result = myCommand.ExecuteNonQuery();
+                LoadLinearSystemTask();
+            }
         }
 
         //Очистка определенного файла
@@ -110,6 +159,28 @@ namespace Neuron
                 button2.Enabled = false;
                 databaseSQLite.CloseConnection();
                 LoadGraphs();
+            }
+            else if (indexSave == 2)
+            {
+                string query = "DELETE from SaveFilesClassification where id=" + "\"" + comboBox1.SelectedIndex + "\"";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                int result = myCommand.ExecuteNonQuery();
+                button3.Enabled = false;
+                button2.Enabled = false;
+                databaseSQLite.CloseConnection();
+                LoadFilesClassification();
+            }
+            else if (indexSave == 3)
+            {
+                string query = "DELETE from SaveLinearSystemTask where id=" + "\"" + comboBox1.SelectedIndex + "\"";
+                databaseSQLite.OpenConnection();
+                SQLiteCommand myCommand = new SQLiteCommand(query, databaseSQLite.myConnection);
+                int result = myCommand.ExecuteNonQuery();
+                button3.Enabled = false;
+                button2.Enabled = false;
+                databaseSQLite.CloseConnection();
+                LoadLinearSystemTask();
             }
 
         }

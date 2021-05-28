@@ -75,9 +75,10 @@ namespace Neuron
 
         protected virtual void ChangeNetSettings()
         {
+            
             net.LastNeuronGroup.SetNeuronCount(studyPairs[currentStudyPair].quits.Count);
             net.InputsCount = studyPairs[currentStudyPair].inputs.Count;
-            if (!net.StudyPairsLoaded) net.StudyPairs = studyPairs;
+            net.StudyPairs = studyPairs;
             pairsLoaded = true;
             net.GraphicsNeuron.netOptions.InputsCount = net.InputsCount;
             
@@ -353,6 +354,7 @@ namespace Neuron
                     MessageBox.Show("Пустой файл", "DataBaseImport", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
                 {
+                    //Ассоциативная память не работает. Чинить бессмысленно, так как этим занимается другая группа
                     ChangeNetSettings();
                     File.WriteAllText("temp.txt", net.StudyPairsToString(studyPairs.Count));
 
@@ -384,8 +386,8 @@ namespace Neuron
                     myCommand.ExecuteNonQuery();
                     databaseSQLite.CloseConnection();
 
-                    neuronGraphics.RecognizeImages(this, EventArgs.Empty);
-                    this.Close();
+                    //neuronGraphics.RecognizeImages(this, EventArgs.Empty);
+                    //this.Close();
                 }
             }
         }
