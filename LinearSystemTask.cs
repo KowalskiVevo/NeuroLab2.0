@@ -136,9 +136,9 @@ namespace Neuron
             {
                 NeuronGroups[0].Neurons[i].sinapses.Clear();
 
-                for (int j = 0; j < inputs.Count; j++)
+                for (int j = 0; j < inputss.Count; j++)
                 {
-                    NeuronGroups[0].Neurons[i].sinapses.Add(new Sinaps(inputs[j]));
+                    NeuronGroups[0].Neurons[i].sinapses.Add(new Sinaps(inputss[j]));
                 }
             }
 

@@ -66,9 +66,21 @@
             this.обучающиеПримерыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.импортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.экспортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jsonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.импортToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.экспортToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.datToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.импортToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.экспортToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.NetTree = new System.Windows.Forms.TreeView();
+            this.перезапускToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
@@ -88,7 +100,8 @@
             this.обучениеСетиToolStripMenuItem,
             this.доступныеЗадачиToolStripMenuItem,
             this.типНайроннойСетиToolStripMenuItem,
-            this.обучающиеПримерыToolStripMenuItem});
+            this.обучающиеПримерыToolStripMenuItem,
+            this.файлToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(862, 24);
@@ -103,30 +116,31 @@
             this.группаНейроновToolStripMenuItem,
             this.параметрыСетиToolStripMenuItem,
             this.сохранитьСетьToolStripMenuItem,
-            this.загрузитьСетьToolStripMenuItem});
+            this.загрузитьСетьToolStripMenuItem,
+            this.перезапускToolStripMenuItem});
             this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
-            this.операцииToolStripMenuItem.Size = new System.Drawing.Size(114, 20);
+            this.операцииToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
             this.операцииToolStripMenuItem.Text = "Архитектура сети";
             this.операцииToolStripMenuItem.Click += new System.EventHandler(this.операцииToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(197, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(239, 22);
             this.toolStripMenuItem1.Text = "Обновить архитектуру";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.button1_Click);
             // 
             // посчитатьЗначениеСетиToolStripMenuItem
             // 
             this.посчитатьЗначениеСетиToolStripMenuItem.Name = "посчитатьЗначениеСетиToolStripMenuItem";
-            this.посчитатьЗначениеСетиToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.посчитатьЗначениеСетиToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.посчитатьЗначениеСетиToolStripMenuItem.Text = "Посчитать выход сети";
             this.посчитатьЗначениеСетиToolStripMenuItem.Click += new System.EventHandler(this.CalculateNet);
             // 
             // группаНейроновToolStripMenuItem
             // 
             this.группаНейроновToolStripMenuItem.Name = "группаНейроновToolStripMenuItem";
-            this.группаНейроновToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.группаНейроновToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.группаНейроновToolStripMenuItem.Text = "Группа нейронов";
             this.группаНейроновToolStripMenuItem.Click += new System.EventHandler(this.NeuronGroupOptions);
             // 
@@ -135,7 +149,7 @@
             this.параметрыСетиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.задатьToolStripMenuItem});
             this.параметрыСетиToolStripMenuItem.Name = "параметрыСетиToolStripMenuItem";
-            this.параметрыСетиToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.параметрыСетиToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.параметрыСетиToolStripMenuItem.Text = "Параметры сети";
             // 
             // задатьToolStripMenuItem
@@ -148,15 +162,15 @@
             // сохранитьСетьToolStripMenuItem
             // 
             this.сохранитьСетьToolStripMenuItem.Name = "сохранитьСетьToolStripMenuItem";
-            this.сохранитьСетьToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.сохранитьСетьToolStripMenuItem.Text = "Сохранить сеть";
+            this.сохранитьСетьToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.сохранитьСетьToolStripMenuItem.Text = "Сохранить сеть в базу данных";
             this.сохранитьСетьToolStripMenuItem.Click += new System.EventHandler(this.SerializeNet);
             // 
             // загрузитьСетьToolStripMenuItem
             // 
             this.загрузитьСетьToolStripMenuItem.Name = "загрузитьСетьToolStripMenuItem";
-            this.загрузитьСетьToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.загрузитьСетьToolStripMenuItem.Text = "Загрузить сеть";
+            this.загрузитьСетьToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.загрузитьСетьToolStripMenuItem.Text = "Загрузить сеть в базу данных";
             this.загрузитьСетьToolStripMenuItem.Click += new System.EventHandler(this.DeserializeNet);
             // 
             // обучениеСетиToolStripMenuItem
@@ -221,7 +235,7 @@
             this.аToolStripMenuItem,
             this.системыЛинейныхУравненийToolStripMenuItem});
             this.доступныеЗадачиToolStripMenuItem.Name = "доступныеЗадачиToolStripMenuItem";
-            this.доступныеЗадачиToolStripMenuItem.Size = new System.Drawing.Size(108, 20);
+            this.доступныеЗадачиToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
             this.доступныеЗадачиToolStripMenuItem.Text = "Типовые задачи";
             // 
             // задачаКлассификацииToolStripMenuItem
@@ -230,7 +244,7 @@
             this.hfcgToolStripMenuItem,
             this.классификацияОбъектовToolStripMenuItem});
             this.задачаКлассификацииToolStripMenuItem.Name = "задачаКлассификацииToolStripMenuItem";
-            this.задачаКлассификацииToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.задачаКлассификацииToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.задачаКлассификацииToolStripMenuItem.Text = "Классификация";
             // 
             // hfcgToolStripMenuItem
@@ -253,7 +267,7 @@
             this.функцияОднойПеременнойToolStripMenuItem,
             this.функцияДвухПеременныхToolStripMenuItem});
             this.регрессияToolStripMenuItem.Name = "регрессияToolStripMenuItem";
-            this.регрессияToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.регрессияToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.регрессияToolStripMenuItem.Text = "Регрессия";
             // 
             // функцияОднойПеременнойToolStripMenuItem
@@ -305,21 +319,21 @@
             // кластеранализToolStripMenuItem
             // 
             this.кластеранализToolStripMenuItem.Name = "кластеранализToolStripMenuItem";
-            this.кластеранализToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.кластеранализToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.кластеранализToolStripMenuItem.Text = "Кластер-анализ";
             this.кластеранализToolStripMenuItem.Click += new System.EventHandler(this.Clasterization);
             // 
             // аToolStripMenuItem
             // 
             this.аToolStripMenuItem.Name = "аToolStripMenuItem";
-            this.аToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.аToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.аToolStripMenuItem.Text = "Восстановление образов";
             this.аToolStripMenuItem.Click += new System.EventHandler(this.AssociationMemory);
             // 
             // системыЛинейныхУравненийToolStripMenuItem
             // 
             this.системыЛинейныхУравненийToolStripMenuItem.Name = "системыЛинейныхУравненийToolStripMenuItem";
-            this.системыЛинейныхУравненийToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.системыЛинейныхУравненийToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.системыЛинейныхУравненийToolStripMenuItem.Text = "Системы линейных уравнений";
             this.системыЛинейныхУравненийToolStripMenuItem.Click += new System.EventHandler(this.системыЛинейныхУравненийToolStripMenuItem_Click);
             // 
@@ -330,7 +344,7 @@
             this.слойКохоненаToolStripMenuItem,
             this.сетьХопфилдаToolStripMenuItem});
             this.типНайроннойСетиToolStripMenuItem.Name = "типНайроннойСетиToolStripMenuItem";
-            this.типНайроннойСетиToolStripMenuItem.Size = new System.Drawing.Size(132, 20);
+            this.типНайроннойСетиToolStripMenuItem.Size = new System.Drawing.Size(131, 20);
             this.типНайроннойСетиToolStripMenuItem.Text = "Тип нейронной сети";
             // 
             // многослойныйПерсептронToolStripMenuItem
@@ -366,16 +380,95 @@
             // загрузитьToolStripMenuItem
             // 
             this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
-            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.загрузитьToolStripMenuItem.Text = "Загрузить";
             this.загрузитьToolStripMenuItem.Click += new System.EventHandler(this.LoadStudyExamples);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.SaveStudyExamples);
+            // 
+            // файлToolStripMenuItem
+            // 
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.excelToolStripMenuItem,
+            this.jsonToolStripMenuItem,
+            this.datToolStripMenuItem});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // excelToolStripMenuItem
+            // 
+            this.excelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.импортToolStripMenuItem,
+            this.экспортToolStripMenuItem});
+            this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
+            this.excelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.excelToolStripMenuItem.Text = "Excel";
+            // 
+            // импортToolStripMenuItem
+            // 
+            this.импортToolStripMenuItem.Name = "импортToolStripMenuItem";
+            this.импортToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.импортToolStripMenuItem.Text = "Импорт";
+            this.импортToolStripMenuItem.Click += new System.EventHandler(this.ImportExcel);
+            // 
+            // экспортToolStripMenuItem
+            // 
+            this.экспортToolStripMenuItem.Name = "экспортToolStripMenuItem";
+            this.экспортToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.экспортToolStripMenuItem.Text = "Экспорт";
+            this.экспортToolStripMenuItem.Click += new System.EventHandler(this.ExportExcel);
+            // 
+            // jsonToolStripMenuItem
+            // 
+            this.jsonToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.импортToolStripMenuItem1,
+            this.экспортToolStripMenuItem1});
+            this.jsonToolStripMenuItem.Name = "jsonToolStripMenuItem";
+            this.jsonToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.jsonToolStripMenuItem.Text = "Json";
+            // 
+            // импортToolStripMenuItem1
+            // 
+            this.импортToolStripMenuItem1.Name = "импортToolStripMenuItem1";
+            this.импортToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.импортToolStripMenuItem1.Text = "Импорт";
+            this.импортToolStripMenuItem1.Click += new System.EventHandler(this.ImportJson);
+            // 
+            // экспортToolStripMenuItem1
+            // 
+            this.экспортToolStripMenuItem1.Name = "экспортToolStripMenuItem1";
+            this.экспортToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.экспортToolStripMenuItem1.Text = "Экспорт";
+            this.экспортToolStripMenuItem1.Click += new System.EventHandler(this.ExportJson);
+            // 
+            // datToolStripMenuItem
+            // 
+            this.datToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.импортToolStripMenuItem2,
+            this.экспортToolStripMenuItem2});
+            this.datToolStripMenuItem.Name = "datToolStripMenuItem";
+            this.datToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.datToolStripMenuItem.Text = ".dat";
+            // 
+            // импортToolStripMenuItem2
+            // 
+            this.импортToolStripMenuItem2.Name = "импортToolStripMenuItem2";
+            this.импортToolStripMenuItem2.Size = new System.Drawing.Size(119, 22);
+            this.импортToolStripMenuItem2.Text = "Импорт";
+            this.импортToolStripMenuItem2.Click += new System.EventHandler(this.ImportFileDat);
+            // 
+            // экспортToolStripMenuItem2
+            // 
+            this.экспортToolStripMenuItem2.Name = "экспортToolStripMenuItem2";
+            this.экспортToolStripMenuItem2.Size = new System.Drawing.Size(119, 22);
+            this.экспортToolStripMenuItem2.Text = "Экспорт";
+            this.экспортToolStripMenuItem2.Click += new System.EventHandler(this.ExportFileDat);
             // 
             // splitContainer1
             // 
@@ -402,6 +495,13 @@
             this.NetTree.Size = new System.Drawing.Size(332, 687);
             this.NetTree.TabIndex = 0;
             // 
+            // перезапускToolStripMenuItem
+            // 
+            this.перезапускToolStripMenuItem.Name = "перезапускToolStripMenuItem";
+            this.перезапускToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.перезапускToolStripMenuItem.Text = "Перезапуск";
+            this.перезапускToolStripMenuItem.Click += new System.EventHandler(this.перезапускToolStripMenuItem_Click);
+            // 
             // NeuronGraphics
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -414,6 +514,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -462,5 +563,16 @@
         private System.Windows.Forms.ToolStripMenuItem мноогслойныйПерцептронToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rBFToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem системыЛинейныхУравненийToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem excelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem импортToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem экспортToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem jsonToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem импортToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem экспортToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem datToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem импортToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem экспортToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem перезапускToolStripMenuItem;
     }
 }

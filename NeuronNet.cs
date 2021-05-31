@@ -4,26 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using ColorGrid;
+using NLog.Internal.Xamarin;
+using Newtonsoft.Json;
 
 namespace Neuron
 {
     [Serializable]
     public class NeuronInput
     {
+        [JsonProperty("Position")]
         public PointF Position;
+        [JsonProperty("positionChanged")]
         public bool positionChanged = false;
+        [JsonProperty("value")]
         public float value = 1.1f;
+        [JsonProperty("wasPainted")]
         public bool wasPainted = false;
+        [JsonProperty("Name")]
         public string Name;
 
-        public NeuronInput(string Name)
+
+        public NeuronInput(string name)
         {
-            this.Name = Name;
+            this.Name = name;
         }
 
         public NeuronInput(float val)
         {
             value = val;
+        }
+
+        [JsonConstructor]
+        public NeuronInput(float val,string name, PointF position)
+        {
+            this.Position = position;
+            value = val;
+            this.Name = name;
         }
     }
     [Serializable]
@@ -32,17 +48,17 @@ namespace Neuron
         public Neuron fromNeuron = null;
         public NeuronInput frominput = null;
         public float value;
-        public float priv_direction=0f;
+        public float priv_direction = 0f;
         public static Random rand = new Random();
         public float dE_dx;
-        static Point interval = new Point(-50 , 50);
+        static Point interval = new Point(-50, 50);
         static int multiplier = 1000;
 
         public static PointF Interval
         {
-            set 
+            set
             {
-                interval = new Point((int)(value.X * multiplier) , (int)(value.Y * multiplier));
+                interval = new Point((int)(value.X * multiplier), (int)(value.Y * multiplier));
             }
         }
 
@@ -50,28 +66,36 @@ namespace Neuron
         {
             fromNeuron = neuron;
             value = ((float)rand.Next(interval.X, interval.Y)) / multiplier;
-           // value = 0.2f;
-         }
+            // value = 0.2f;
+        }
 
         public Sinaps(NeuronInput input)
         {
             frominput = input;
-            value =((float)rand.Next(interval.X, interval.Y)) / multiplier;
-          //  value = 0.2f;
-        }  
-          
+            value = ((float)rand.Next(interval.X, interval.Y)) / multiplier;
+            //  value = 0.2f;
+        }
+
+        [JsonConstructor]
+        public Sinaps (NeuronInput input, Neuron neuron)
+        {
+            fromNeuron = neuron;
+            frominput = input;
+            value = ((float)rand.Next(interval.X, interval.Y)) / multiplier;
+        }
+
     }
 
     public enum ActivationFunction
-    { 
-        LIMIT = 0 , 
-        LOGISTIC = 1 , 
-        TANGENS = 2 , 
-        RADIAL = 3 ,
+    {
+        LIMIT = 0,
+        LOGISTIC = 1,
+        TANGENS = 2,
+        RADIAL = 3,
         GORBAN = 4,
         LINEAR = 5,
         RADIAL_VEC = 6,
-        SOFT_MAX=7
+        SOFT_MAX = 7
     }
     [Serializable]
     public class Neuron
@@ -79,11 +103,11 @@ namespace Neuron
         public PointF Position;
         public bool positionChanged = false;
         public List<Sinaps> sinapses = new List<Sinaps>();
-        public float NET , OUT , studyValue, Shift=0.2f;
+        public float NET, OUT, studyValue, Shift = 0.2f;
         public float priv_direction = 0f;
         public ActivationFunction activationFunction = ActivationFunction.LOGISTIC;
         public List<Sinaps> aksons = new List<Sinaps>();
-        public float A = 1f,C,R;
+        public float A = 1f, C, R;
         public float[] Centers;
         public bool active = false;
         public NeuronGroup NeuronGroup = null;
@@ -93,24 +117,33 @@ namespace Neuron
 
         public Neuron()
         {
-            Shift = (float)rand.Next(-500 , 500) / 1000;
+            Shift = (float)rand.Next(-500, 500) / 1000;
             activationFunction = DefaultActivationFunction;
         }
 
+        [JsonConstructor]
         public Neuron(NeuronGroup group)
         {
             NeuronGroup = group;
             activationFunction = DefaultActivationFunction;
         }
 
-        public Neuron(Neuron obj,NeuronGroup group)
+        
+        public Neuron(Neuron obj, NeuronGroup group)
         {
-            positionChanged = obj.positionChanged;
+            if (obj != null)
+            {
+                positionChanged = obj.positionChanged;
+                activationFunction = obj.activationFunction;
+                A = obj.A;
+                active = obj.active;
+                wasPainted = obj.wasPainted;
+            }
+            else
+            {
+                activationFunction = DefaultActivationFunction;
+            }
             Shift = (float)rand.Next(-500, 500) / 1000;
-            activationFunction = obj.activationFunction;
-            A=obj.A;
-            active =obj.active;
-            wasPainted =obj.wasPainted;
             NeuronGroup = group;
         }
 
@@ -136,28 +169,28 @@ namespace Neuron
             {
                 case ActivationFunction.LIMIT: if (NET > 0.0f) OUT = 1; else OUT = 0; break;
                 case ActivationFunction.LOGISTIC: OUT = 1.0f / (1.0f + (float)Math.Exp(-A * NET)); break;
-                case ActivationFunction.TANGENS: OUT = (float)0.5*((Single)Math.Tanh(NET*A)+1); break;
-                case ActivationFunction.RADIAL: OUT=(float)(Math.Exp(-Math.Pow(NET-C,2)/(2*R*R))/Math.Sqrt(2*Math.PI*R)); break;
-                case ActivationFunction.RADIAL_VEC: OUT = (float)(Math.Exp(-A*NET)); break;
-                case ActivationFunction.GORBAN: OUT = (float)0.5*(NET/(1.0f+Math.Abs(NET))+1); break;
+                case ActivationFunction.TANGENS: OUT = (float)0.5 * ((Single)Math.Tanh(NET * A) + 1); break;
+                case ActivationFunction.RADIAL: OUT = (float)(Math.Exp(-Math.Pow(NET - C, 2) / (2 * R * R)) / Math.Sqrt(2 * Math.PI * R)); break;
+                case ActivationFunction.RADIAL_VEC: OUT = (float)(Math.Exp(-A * NET)); break;
+                case ActivationFunction.GORBAN: OUT = (float)0.5 * (NET / (1.0f + Math.Abs(NET)) + 1); break;
                 case ActivationFunction.LINEAR: OUT = NET; break;
                 case ActivationFunction.SOFT_MAX: OUT = (float)(Math.Exp(NET)) / NeuronGroup.SumForSoftMax; break;
-            }                   
+            }
         }
 
         public void SecondActivate()
         {
-            OUT = (float)(Math.Pow(OUT, 2) / NeuronGroup.SumForSoftMax);         
+            OUT = (float)(Math.Pow(OUT, 2) / NeuronGroup.SumForSoftMax);
         }
 
         public float ActivateFunction(float x)
-        {                     
+        {
             switch (activationFunction)
             {
                 case ActivationFunction.LIMIT: if (x > 0.0f) return 1; return 0;
                 case ActivationFunction.LOGISTIC: return 1.0f / (1.0f + (float)Math.Exp(-A * x));
-                case ActivationFunction.TANGENS: return (float)0.5f*(Single)Math.Tanh(x*A);
-                case ActivationFunction.RADIAL: return (float)(Math.Exp(-A*Math.Pow(x , 2)));
+                case ActivationFunction.TANGENS: return (float)0.5f * (Single)Math.Tanh(x * A);
+                case ActivationFunction.RADIAL: return (float)(Math.Exp(-A * Math.Pow(x, 2)));
                 case ActivationFunction.RADIAL_VEC: return (float)(Math.Exp(-A * Math.Pow(x, 2)));
                 case ActivationFunction.GORBAN: return (float)0.5f * (x / (1.0f + Math.Abs(x) + 1));
                 case ActivationFunction.LINEAR: return x;
@@ -175,7 +208,7 @@ namespace Neuron
                 float buffer;
                 for (int i = 0; i < sinapses.Count; i++)
                 {
-                    buffer = (sinapses[i].frominput == null ? sinapses[i].fromNeuron.OUT : sinapses[i].frominput.value)-Centers[i];
+                    buffer = (sinapses[i].frominput == null ? sinapses[i].fromNeuron.OUT : sinapses[i].frominput.value) - Centers[i];
                     NET += buffer * buffer;
                 }
                 //NET = (float)Math.Sqrt(NET);
@@ -198,12 +231,13 @@ namespace Neuron
 
         public override string ToString()
         {
-            return string.Format("{0|0.00}" , OUT);
+            return string.Format("{0|0.00}", OUT);
         }
     }
     [Serializable]
     public class NeuronGroup
     {
+        //[JsonProperty("Neurons")]
         public List<Neuron> Neurons = new List<Neuron>();
         public bool SecondActivate = false;
         public float SumForSoftMax = 0;
@@ -212,7 +246,7 @@ namespace Neuron
 
         public int PaintedNeuronsCount
         {
-            get 
+            get
             {
                 if (Neurons.Count > maxNeuronsCount)
                 {
@@ -223,16 +257,29 @@ namespace Neuron
 
                 return Neurons.Count;
             }
+            set
+            {
+                
+            }
         }
 
+        [JsonConstructor]
         public NeuronGroup()
-        {            
+        {
             Neurons.Add(new Neuron(this));
         }
 
         public NeuronGroup(int neuronCount)
         {
-            for (int i = 0; i < neuronCount; i++) Neurons.Add(new Neuron(this));
+            if (neuronCount == 0)
+            {
+                Neurons.Add(new Neuron(this));
+            }
+            else
+            {
+                for (int i = 0; i < neuronCount; i++) Neurons.Add(new Neuron(this));
+            }
+            
         }
 
         public void SetNeuronCount(int count)
@@ -242,7 +289,7 @@ namespace Neuron
             {
                 exepl = Neurons[0];
                 Neurons.Clear();
-                for (int i = 0; i < count; i++) Neurons.Add(new Neuron(exepl,this));
+                for (int i = 0; i < count; i++) Neurons.Add(new Neuron(exepl, this));
             }
             else
             {
@@ -250,13 +297,13 @@ namespace Neuron
                 for (int i = 0; i < count; i++) Neurons.Add(new Neuron(this));
             }
         }
-       
+
 
         public void CalculateSumForSoftMax()
         {
             SumForSoftMax = 0;
 
-            for (int i = 0; i < Neurons.Count; i++) SumForSoftMax += (float)Math.Pow(Neurons[i].OUT , 2);            
+            for (int i = 0; i < Neurons.Count; i++) SumForSoftMax += (float)Math.Pow(Neurons[i].OUT, 2);
         }
     }
     [Serializable]
@@ -286,20 +333,20 @@ namespace Neuron
             for (int i = 0; i < str.Length; i++)
             {
                 switch (str[i])
-                { 
+                {
                     case '-':
                     case ',':
                     case '.': tmp += str[i]; break;
 
-                    case '|': 
-                        
+                    case '|':
+
                         if (!output) pair.inputs.Add(Convert.ToSingle(tmp));
                         else
                         {
                             pair.quits.Add(Convert.ToSingle(tmp));
                             pair.realQuits.Add(0);
-                        }           
-                        tmp = "";  
+                        }
+                        tmp = "";
                         break;
 
                     case ';':
@@ -313,14 +360,14 @@ namespace Neuron
                         tmp = "";
                         break;
 
-                    case '&': 
-                              if (name) pair.name = tmp;
-                              name = true; 
-                              break;
+                    case '&':
+                        if (name) pair.name = tmp;
+                        name = true;
+                        break;
 
                     case '#': return pair;
 
-                    default: 
+                    default:
                         if (char.IsDigit(str[i])) tmp += str[i];
                         if (name) tmp += str[i];
                         break;
@@ -335,27 +382,27 @@ namespace Neuron
             string str = "";
 
             for (int i = 0; i < inputs.Count; i++) str += inputs[i].ToString("0.00") + "|";
-                str = str.Remove(str.Length - 1) + ";";
-            
-            for (int i = 0; i < quits.Count; i++) str += quits[i].ToString("0.00") + "|";
-                str = str.Remove(str.Length - 1) + ";";
+            str = str.Remove(str.Length - 1) + ";";
 
-            str += string.Format("&{0}&#" , name);
+            for (int i = 0; i < quits.Count; i++) str += quits[i].ToString("0.00") + "|";
+            str = str.Remove(str.Length - 1) + ";";
+
+            str += string.Format("&{0}&#", name);
 
             for (int i = 0; i < realQuits.Count; i++)
                 str += realQuits[i].ToString("0.00") + "|";
 
-            
+
             return str;
         }
 
-        public string ToString(int quitsCount , int currPair)
+        public string ToString(int quitsCount, int currPair)
         {
             string str = "";
 
             for (int i = 0; i < inputs.Count; i++) str += inputs[i].ToString("0.00") + "|";
             str = str.Remove(str.Length - 1) + ";";
-            for (int i = 0; i < quitsCount; i++) str += ( i == currPair ? 1 : -1 ).ToString("0.00") + "|";
+            for (int i = 0; i < quitsCount; i++) str += (i == currPair ? 1 : -1).ToString("0.00") + "|";
             str = str.Remove(str.Length - 1) + ";";
 
             str += string.Format("&{0}&", name);
@@ -369,7 +416,7 @@ namespace Neuron
         public StudyPair pair;
         public int result;
 
-        public RecognitionResult(StudyPair studyPair , int res)
+        public RecognitionResult(StudyPair studyPair, int res)
         {
             pair = studyPair;
             result = res;
@@ -377,12 +424,15 @@ namespace Neuron
     }
 
     [Serializable]
-    public class NeuronNet
+    public class NeuronNet 
     {
-        public List<NeuronInput> inputs = new List<NeuronInput>();
+        [JsonProperty("inputss")]
+        public List<NeuronInput> inputss = new List<NeuronInput>();
+        [JsonProperty("NeuronGroups")]
         public List<NeuronGroup> NeuronGroups = new List<NeuronGroup>();
         [NonSerialized] public NeuronGraphics GraphicsNeuron;
-        public List<StudyPair> studyPairs = new List<StudyPair>();
+        [JsonProperty("studyPairss")]
+        public List<StudyPair> studyPairss = new List<StudyPair>();
         int currentStudyPair = 0;
         public float E = 0.9f,moment=0.3f;
         Random rand = new Random();
@@ -421,16 +471,17 @@ namespace Neuron
             VariableD.value = 3;
         }
 
+        [JsonProperty("StudyPairs")]
         public List<StudyPair> StudyPairs
         {
             get 
             {
-                return studyPairs;
+                return studyPairss;
             }
             set 
             {
-                studyPairs.Clear();
-                for (int i = 0; i < value.Count; i++) studyPairs.Add(value[i]);
+                studyPairss.Clear();
+                for (int i = 0; i < value.Count; i++) studyPairss.Add(value[i]);
                 StudyPairsLoaded = true;
             }
         }
@@ -439,13 +490,13 @@ namespace Neuron
         {
             get 
             {
-                return inputs;
+                return inputss;
             }
             set 
             {
                 if (!AccessChangeNet) return;
-                inputs.Clear();
-                for (int i = 0; i < value.Count; i++) inputs.Add(value[i]);
+                inputss.Clear();
+                for (int i = 0; i < value.Count; i++) inputss.Add(value[i]);
             }
         }
 
@@ -453,13 +504,13 @@ namespace Neuron
         {
             get 
             {
-                if (inputs.Count > NeuronGroup.maxNeuronsCount)
+                if (inputss.Count > NeuronGroup.maxNeuronsCount)
                 {
                     allInputsWasPainted = false;
                     return NeuronGroup.maxNeuronsCount;
                 }
 
-                return inputs.Count;
+                return inputss.Count;
             }
         }
 
@@ -467,15 +518,15 @@ namespace Neuron
         {
             get
             {
-                return inputs.Count;
+                return inputss.Count;
             }
             set
             {
                 if (!AccessChangeNet) return;
                 if (value < 1) return;
                 allInputsWasPainted = true;
-                inputs.Clear();
-                for (int i = 0; i < value; i++) inputs.Add(new NeuronInput("Параметр № " + (i + 1).ToString()));
+                inputss.Clear();
+                for (int i = 0; i < value; i++) inputss.Add(new NeuronInput("Параметр № " + (i + 1).ToString()));
                 SetSinapses();
                 if(GraphicsNeuron != null) GraphicsNeuron.CalculateObjectsPositions();               
             }                     
@@ -551,13 +602,13 @@ namespace Neuron
         {
             InputsSum = 0;
 
-            for (int i = 0; i < studyPairs.Count; i++, InputsSum = 0)
+            for (int i = 0; i < studyPairss.Count; i++, InputsSum = 0)
             {
-                for (int j = 0; j < studyPairs[i].inputs.Count; j++) InputsSum += (float)Math.Pow(studyPairs[i].inputs[j], 2);
+                for (int j = 0; j < studyPairss[i].inputs.Count; j++) InputsSum += (float)Math.Pow(studyPairss[i].inputs[j], 2);
 
                 InputsSum = (float)Math.Sqrt(InputsSum);
 
-                for (int j = 0; j < studyPairs[i].inputs.Count; j++) studyPairs[i].inputs[j] /= InputsSum;
+                for (int j = 0; j < studyPairss[i].inputs.Count; j++) studyPairss[i].inputs[j] /= InputsSum;
             }
         }
 
@@ -565,21 +616,21 @@ namespace Neuron
         {
             NormalizeOutputValue = 0;
 
-            for (int i = 0; i < studyPairs.Count; i++)
+            for (int i = 0; i < studyPairss.Count; i++)
             {
-                for (int j = 0; j < studyPairs[i].quits.Count; j++)
+                for (int j = 0; j < studyPairss[i].quits.Count; j++)
                 {
-                    NormalizeOutputValue += (float)Math.Pow(studyPairs[i].quits[j], 2);
+                    NormalizeOutputValue += (float)Math.Pow(studyPairss[i].quits[j], 2);
                 }
             }
 
             NormalizeOutputValue = (float)Math.Sqrt(NormalizeOutputValue);
 
-            for (int i = 0; i < studyPairs.Count; i++)
+            for (int i = 0; i < studyPairss.Count; i++)
             {
-                for (int j = 0; j < studyPairs[i].quits.Count; j++)
+                for (int j = 0; j < studyPairss[i].quits.Count; j++)
                 {
-                    studyPairs[i].quits[j] /= NormalizeOutputValue;
+                    studyPairss[i].quits[j] /= NormalizeOutputValue;
                 }
             }
         }
@@ -592,16 +643,16 @@ namespace Neuron
             {
                 min=float.MaxValue;
                 max=float.MinValue;
-                for(int j=0;j<studyPairs.Count;j++)
+                for(int j=0;j< studyPairss.Count;j++)
                 {
-                    if (max < studyPairs[j].inputs[i]) max = studyPairs[j].inputs[i];
-                    if (min > studyPairs[j].inputs[i]) min = studyPairs[j].inputs[i];
+                    if (max < studyPairss[j].inputs[i]) max = studyPairss[j].inputs[i];
+                    if (min > studyPairss[j].inputs[i]) min = studyPairss[j].inputs[i];
                 }
                 biasX[i]=min;
                 scaleX[i]=max-min;
-                for (int j = 0; j < studyPairs.Count; j++)
+                for (int j = 0; j < studyPairss.Count; j++)
                 {
-                    studyPairs[j].inputs[i] = (studyPairs[j].inputs[i]-biasX[i])/scaleX[i];
+                    studyPairss[j].inputs[i] = (studyPairss[j].inputs[i]-biasX[i])/scaleX[i];
                 }
             }  
         }
@@ -615,16 +666,16 @@ namespace Neuron
             {
                 min = float.MaxValue;
                 max = float.MinValue;
-                for (int j = 0; j < studyPairs.Count; j++)
+                for (int j = 0; j < studyPairss.Count; j++)
                 {
-                    if (max < studyPairs[j].quits[i]) max = studyPairs[j].quits[i];
-                    if (min > studyPairs[j].quits[i]) min = studyPairs[j].quits[i];
+                    if (max < studyPairss[j].quits[i]) max = studyPairss[j].quits[i];
+                    if (min > studyPairss[j].quits[i]) min = studyPairss[j].quits[i];
                 }
                 biasY[i] = min;
                 scaleY[i] = max - min;
-                for (int j = 0; j < studyPairs.Count; j++)
+                for (int j = 0; j < studyPairss.Count; j++)
                 {
-                    studyPairs[j].quits[i] = (studyPairs[j].quits[i] - biasY[i]) / scaleY[i];
+                    studyPairss[j].quits[i] = (studyPairss[j].quits[i] - biasY[i]) / scaleY[i];
                 }
             }  
 
@@ -632,7 +683,7 @@ namespace Neuron
 
         public void SaveRealQuits()
         {
-            for (int i = 0; i < studyPairs.Count; i++)
+            for (int i = 0; i < studyPairss.Count; i++)
             {
                 LoadNextStudyPair(i);
                 Calculate();
@@ -790,9 +841,9 @@ namespace Neuron
             {
                 NeuronGroups[0].Neurons[i].sinapses.Clear();
 
-                for (int j = 0; j < inputs.Count; j++)
+                for (int j = 0; j < inputss.Count; j++)
                 {
-                    NeuronGroups[0].Neurons[i].sinapses.Add(new Sinaps(inputs[j]));
+                    NeuronGroups[0].Neurons[i].sinapses.Add(new Sinaps(inputss[j]));
                 }
             }
 
@@ -815,7 +866,7 @@ namespace Neuron
 
         public NeuronGroup Calculate(float [] input)
         {
-            for (int i = 0; i < inputs.Count; i++) inputs[i].value = input[i];
+            for (int i = 0; i < inputss.Count; i++) inputss[i].value = input[i];
             Calculate();
 
             return LastNeuronGroup;
@@ -845,9 +896,9 @@ namespace Neuron
 
         public virtual void LoadNextStudyPair(int studyPair)
         {
-            if (studyPair >= studyPairs.Count) return;
+            if (studyPair >= studyPairss.Count) return;
 
-            for (int i = 0; i < inputs.Count; i++) inputs[i].value = StudyPairs[studyPair].inputs[i];
+            for (int i = 0; i < inputss.Count; i++) inputss[i].value = StudyPairs[studyPair].inputs[i];
             for (int i = 0; i < LastNeuronGroup.Neurons.Count; i++) LastNeuronGroup.Neurons[i].studyValue = StudyPairs[studyPair].quits[i];
 
             Calculate();

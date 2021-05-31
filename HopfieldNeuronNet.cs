@@ -69,13 +69,13 @@ namespace Neuron
 
         private void CreateStudyPairsMatrix()
         { 
-            stydyPairsMatrix = new Matrix(InputsCount , studyPairs.Count);
+            stydyPairsMatrix = new Matrix(InputsCount , studyPairss.Count);
 
             for (int i = 0; i < InputsCount; i++)
             {
-                for (int j = 0; j < studyPairs.Count; j++)
+                for (int j = 0; j < studyPairss.Count; j++)
                 {
-                    stydyPairsMatrix[i, j] = studyPairs[j].inputs[i];
+                    stydyPairsMatrix[i, j] = studyPairss[j].inputs[i];
                 }
             }
             
@@ -86,16 +86,16 @@ namespace Neuron
 
         private bool CreateStudyPairsMatrix1()
         {
-            if (studyPairs.Count == 0) return false;
+            if (studyPairss.Count == 0) return false;
 
             stydyPairsMatrix = new Matrix(InputsCount, 1);
             weightsMatrix = new Matrix(InputsCount, InputsCount);
 
-            for (int j = 0; j < studyPairs.Count; j++)
+            for (int j = 0; j < studyPairss.Count; j++)
             {
                 for (int i = 0; i < InputsCount; i++)
                 {
-                    stydyPairsMatrix[i, 0] = studyPairs[j].inputs[i];
+                    stydyPairsMatrix[i, 0] = studyPairss[j].inputs[i];
                 }
 
                 weightsMatrix += stydyPairsMatrix.Transponation() * stydyPairsMatrix - Matrix.Identity;
@@ -136,7 +136,7 @@ namespace Neuron
         {
             for (int i = 0; i < InputsCount; i++)
             {
-                LastNeuronGroup.Neurons[i].OUT = studyPairs[studyPair].inputs[i];
+                LastNeuronGroup.Neurons[i].OUT = studyPairss[studyPair].inputs[i];
             }
 
             SetSinapses();

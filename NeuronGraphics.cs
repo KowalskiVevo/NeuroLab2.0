@@ -10,6 +10,19 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Data.SQLite;
 using System.IO;
 using Database;
+//using ServiceStack.Text;
+using CsvHelper;
+using System.Globalization;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Vse.Web.Serialization;
+using System.Text.Encodings.Web;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using System.Threading;
+using Newtonsoft.Json.Serialization;
+using static Neuron.Root;
 
 namespace Neuron
 {
@@ -738,6 +751,212 @@ namespace Neuron
             type = NeuronNetType.SHUFFLE;
             this.Net = net;
             Refresh();
+        }
+
+        //Импорт файла
+        private void ImportFileDat(object sender, EventArgs e)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            SaveFileDialog openDlg = new SaveFileDialog();
+            openDlg.Filter = "Data Files (.dat)| *.dat|All files (.)| *.";
+
+            if (openDlg.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = new FileStream(openDlg.FileName, FileMode.Create, FileAccess.Write);
+                net.AccessChangeNet = false;
+                bf.Serialize(fs, (NeuronNet)net);
+                fs.Close();
+            }
+        }
+
+        //Экспорт файла
+        private void ExportFileDat(object sender, EventArgs e)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            OpenFileDialog openDlg = new OpenFileDialog();
+            openDlg.Filter = "Data Files (.dat)| *.dat|All files (.)| *.";
+
+            if (openDlg.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = new FileStream(openDlg.FileName, FileMode.Open, FileAccess.Read);
+                Net = (NeuronNet)bf.Deserialize(fs);
+                net.AccessChangeNet = true;
+                fs.Close(); 
+            }
+        }
+
+        //
+        private void ImportExcel(object sender, EventArgs e)
+        {
+            //string email = "dimkkov@gmail.com";
+            //BinaryFormatter bf = new BinaryFormatter();
+            SaveFileDialog openDlg = new SaveFileDialog();
+            openDlg.Filter = "CSV Files (.csv)| *.csv|All files (.)| *.";
+            //string csvContent = "";
+            if (openDlg.ShowDialog() == DialogResult.OK)
+            {
+                net.AccessChangeNet = false;
+                File.Delete(@"NodeJS\todos.json");
+                //File.Delete(@"NodeJS\todos.csv");
+                string json = JsonConvert.SerializeObject(net, new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+                Console.WriteLine(json);
+                File.WriteAllText(@"NodeJS\todos.json", json);
+
+                Process.Start("cmd", @"/C cd " + Application.StartupPath + "/NodeJS & node ./jsontocsv " + openDlg.FileName);
+                //File.Delete(@"NodeJS\todos.json");
+            }
+        }
+
+        private void ExportExcel(object sender, EventArgs e)
+        {
+            OpenFileDialog openDlg = new OpenFileDialog();
+            openDlg.Filter = "CSV Files (.csv)| *.csv|All files (.)| *.";
+            if (openDlg.ShowDialog() == DialogResult.OK)    
+            {
+                File.Delete(@"NodeJS\test.json");
+                Process.Start("cmd", @"/C cd " + Application.StartupPath + "/NodeJS & node ./csvtojson " + openDlg.FileName);
+                Thread.Sleep(3000);
+                string json = File.ReadAllText(@"NodeJS\test.json");
+                ITraceWriter writer = new MemoryTraceWriter();
+                JsonSerializerSettings serSettings = new JsonSerializerSettings();
+                serSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                serSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                serSettings.TraceWriter = writer;
+
+                //var neuronNet = JsonConvert.DeserializeObject<List<string>>(json.ToString(), serSettings);
+                //var neuronNet = JsonConvert.DeserializeObject<List<NeuronNet>>(json.ToString(), serSettings);
+                var test = JsonConvert.DeserializeObject<List<Root2>>(json.ToString(), serSettings);
+                net = AcceptJson(test[0]);
+                net.AccessChangeNet = true;
+                //Console.WriteLine(writer);
+            }
+        }
+
+        private NeuronNet AcceptJson(Root2 root2)
+        {
+            NeuronNet net = new NeuronNet();
+            for (int i = 0; i < root2.inputss.Count; i++)
+            {
+                PointF pointF = new PointF();
+                pointF.X = (float)root2.inputss[i].Position.X;
+                pointF.Y = (float)root2.inputss[i].Position.Y;
+                NeuronInput neuron = new NeuronInput((float)root2.inputss[i].value, root2.inputss[i].Name, pointF);
+                neuron.positionChanged = root2.inputss[i].positionChanged;
+                neuron.wasPainted = root2.inputss[i].wasPainted;
+                net.inputss.Add(neuron);
+            }
+            for (int i = 0; i < root2.NeuronGroups.Count; i++)
+            {
+                NeuronGroup neurongroup = new NeuronGroup();
+                neurongroup.Neurons = root2.NeuronGroups[i].Neurons;
+                neurongroup.SecondActivate = root2.NeuronGroups[i].SecondActivate;
+                neurongroup.SumForSoftMax = (float)root2.NeuronGroups[i].SumForSoftMax;
+                neurongroup.allNeuronsWasPainted = root2.NeuronGroups[i].allNeuronsWasPainted;
+                net.NeuronGroups.Add(neurongroup);
+            }
+            for(int i = 0; i < root2.studyPairss.Count; i++)
+            {
+                StudyPair studyPair = new StudyPair();
+                for (int j = 0;j< root2.studyPairss[i].inputs.Count; j++)
+                {
+                    studyPair.inputs.Add((float)root2.studyPairss[i].inputs[j]);
+                }
+                for (int j = 0; j < root2.studyPairss[i].quits.Count; j++)
+                {
+                    studyPair.quits.Add((float)root2.studyPairss[i].quits[j]);
+                }
+                for (int j = 0; j < root2.studyPairss[i].realQuits.Count; j++)
+                {
+                    studyPair.realQuits.Add((float)root2.studyPairss[i].realQuits[j]);
+                }
+                net.studyPairss.Add(studyPair);
+            }
+            net.E = (float)root2.E;
+            net.moment = (float)root2.moment;
+            for (int i = 0; i < root2.errors.Count; i++)
+            {
+                PointF pointF = new PointF();
+                pointF.X = (float)root2.errors[i].X;
+                pointF.Y = (float)root2.errors[i].Y;
+                net.errors.Add(pointF);
+            }
+            for (int i = 0; i < root2.normalizedErrors.Count; i++)
+            {
+                PointF pointF = new PointF();
+                pointF.X = (float)root2.normalizedErrors[i].X;
+                pointF.Y = (float)root2.normalizedErrors[i].Y;
+                net.normalizedErrors.Add(pointF);
+            }
+            net.EraCount = root2.EraCount;
+            net.currentSelection = new NeuronGroup(0);
+            net.recognitionResults = new List<RecognitionResult>();
+            net.StudyPairsLoaded = root2.StudyPairsLoaded;
+            net.InputsSum = (float)root2.InputsSum;
+            net.allInputsWasPainted = root2.allInputsWasPainted;
+            net.minError = (float)root2.minError;
+            net.NormalizeOutputValue = (float)root2.NormalizeOutputValue;
+            net.biasX = (float[])root2.biasX;
+            net.biasY = (float[])root2.biasY;
+            net.scaleX = (float[])root2.scaleX;
+            net.scaleY = (float[])root2.scaleY;
+            net.StudyLimit = (float)root2.StudyLimit;
+            net.AccessChangeNet = root2.AccessChangeNet;
+            return net;
+        }
+
+        private void ImportJson(object sender, EventArgs e)
+        {
+            SaveFileDialog openDlg = new SaveFileDialog();
+            openDlg.Filter = "JSon Files (.json)| *.json|All files (.)| *.";
+            if (openDlg.ShowDialog() == DialogResult.OK)
+            {
+                net.AccessChangeNet = false;
+                //File.Delete(@"NodeJS\todos.json");
+                //File.Delete(@"NodeJS\todos.csv");
+                string json = JsonConvert.SerializeObject(net, new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+                Console.WriteLine(json);
+                File.WriteAllText(openDlg.FileName, json);
+
+                //Process.Start("cmd", @"/C cd " + Application.StartupPath + "/NodeJS & node ./jsontocsv " + openDlg.FileName);
+                //File.Delete(@"NodeJS\todos.json");
+            }
+        }
+
+        private void ExportJson(object sender, EventArgs e)
+        {
+            OpenFileDialog openDlg = new OpenFileDialog();
+            openDlg.Filter = "JSon Files (.json)| *.json|All files (.)| *.";
+            if (openDlg.ShowDialog() == DialogResult.OK)
+            {
+                //File.Delete(@"NodeJS\test.json");
+                ///Process.Start("cmd", @"/C cd " + Application.StartupPath + "/NodeJS & node ./csvtojson " + openDlg.FileName);
+                //Thread.Sleep(3000);
+                string json = File.ReadAllText(openDlg.FileName);
+                ITraceWriter writer = new MemoryTraceWriter();
+                JsonSerializerSettings serSettings = new JsonSerializerSettings();
+                serSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                serSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                serSettings.TraceWriter = writer;
+
+                //var neuronNet = JsonConvert.DeserializeObject<List<string>>(json.ToString(), serSettings);
+                var test = JsonConvert.DeserializeObject<Root2>(json, serSettings);
+                //var test = JsonConvert.DeserializeObject<List<Root2>>(json.ToString(), serSettings);
+                //net = test;
+                net = AcceptJson(test);
+                net.AccessChangeNet = true;
+                //Console.WriteLine(writer);
+            }
+        }
+
+        private void перезапускToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
 
         private void системыЛинейныхУравненийToolStripMenuItem_Click(object sender, EventArgs e)

@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - '0.10'
+before_script:
+  - echo 'updating packages'
+  - sudo apt-get update
+  - npm install

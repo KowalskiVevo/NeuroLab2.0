@@ -43,14 +43,14 @@ namespace Neuron
 
         public void LoadNextStudyPair(int studyPair , int time)
         {
-            if (studyPair >= studyPairs.Count) return;
+            if (studyPair >= studyPairss.Count) return;
             for (int i = 0; i < Inputs.Count; i++) Inputs[i].value = StudyPairs[studyPair].inputs[i] * NormalizeFunction(time) + (1.0f - NormalizeFunction(time)) / ((float)Math.Sqrt(InputsCount));            
             Calculate();            
         }
 
         public override void LoadNextStudyPair(int studyPair)
         {
-            if (studyPair >= studyPairs.Count) return;
+            if (studyPair >= studyPairss.Count) return;
 
             for (int i = 0; i < Inputs.Count; i++) Inputs[i].value = StudyPairs[studyPair].inputs[i];
 
@@ -105,7 +105,7 @@ namespace Neuron
         {
             for (int i = 0; i < EraCount; i++)
             {
-                for (int j = 0; j < studyPairs.Count; j++)
+                for (int j = 0; j < studyPairss.Count; j++)
                 {
                     LoadNextStudyPair(j , i);                   
                     RebuildWeights();
