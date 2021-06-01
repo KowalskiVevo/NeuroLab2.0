@@ -271,9 +271,3 @@ C:\Users\Kowalski\Desktop\Work\NeuroLab2.0\bin\Debug\System.Numerics.Vectors.dll
 C:\Users\Kowalski\Desktop\Work\NeuroLab2.0\bin\Debug\System.Text.Encodings.Web.dll
 C:\Users\Kowalski\Desktop\Work\NeuroLab2.0\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\Kowalski\Desktop\Work\NeuroLab2.0\bin\Debug\System.Text.Encodings.Web.xml
-C:\Users\Kowalski\Desktop\Work\NeuroLab2.0\bin\Debug\Vse.Web.Serialization.dll
-C:\Users\Kowalski\Desktop\Work\NeuroLab2.0\bin\Debug\Vse.Web.Serialization.pdb
-C:\Users\Kowalski\Desktop\Work\NeuroLab2.0\bin\Debug\NLog.dll
-C:\Users\Kowalski\Desktop\Work\NeuroLab2.0\bin\Debug\nunit.framework.dll
-C:\Users\Kowalski\Desktop\Work\NeuroLab2.0\bin\Debug\NLog.xml
-C:\Users\Kowalski\Desktop\Work\NeuroLab2.0\bin\Debug\nunit.framework.xml

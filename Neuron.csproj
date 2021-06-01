@@ -411,6 +411,7 @@
     <Compile Include="RegressionForm.Designer.cs">
       <DependentUpon>RegressionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Root.cs" />
     <Compile Include="SaveMenu.cs">
       <SubType>Form</SubType>
     </Compile>

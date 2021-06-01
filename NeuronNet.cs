@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using ColorGrid;
-using NLog.Internal.Xamarin;
+//using NLog.Internal.Xamarin;
 using Newtonsoft.Json;
 
 namespace Neuron
